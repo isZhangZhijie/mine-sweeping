@@ -1,1 +1,2 @@
-# mine-sweeping
+# 原生js扫雷游戏
+

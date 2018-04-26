@@ -115,20 +115,8 @@ var markedSquare = function(array) {
 
     规则是, 0 会被设置为四周 8 个元素中 9 的数量
 
-    提示：
-        这道题比较麻烦, 你要是不会, 就直接写「这道题目我不会」
-        这道题目循环调用作业 14 的 markedLine，这道题目不要求写测试
-
-    分步提示：
-        1. 先定义一个 clonedSquare 函数，把 array 的内容复制到一个新数组中
-        2. 调用 clonedSquare 函数，得到 square
-        3. 遍历 square，每次遍历的元素为 line
-        4. 遍历 line，调用一个 markAround 函数，传入 square, i, j
-        5. 实现 markAround 函数，对于每一个 square[i][j] 这样的元素都按照规则 +1
-            分 4 个顶角、4 条边和剩下的元素这几种情形
-        6. 两重遍历结束后，square 就是需要的结果，return square 即可。
     */
-    var a = copySquare(array)
+    var a = copySquare(array);
     for (var i = 0; i < a.length; i++) {
         for (var j = 0; j < a[i].length; j++) {
             if(a[i][j] == 9) {
@@ -137,12 +125,12 @@ var markedSquare = function(array) {
         }
     }
     return a
-}
+};
 
 var randomSquare00 = function(x, y) {
-    var a = []
+    var a = [];
     for (var i = 0; i < x; i++) {
-        a[i] = []
+        a[i] = [];
         for (var j = 0; j < y; j++) {
             a[i][j] = 0
         }
@@ -151,23 +139,23 @@ var randomSquare00 = function(x, y) {
 }
 // 随机布 n 个雷
 var randomSquare09 = function(x, y, n) {
-    var a = randomSquare00(x, y)
+    var a = randomSquare00(x, y);
 
-    var xlen = a.length
-    var ylen = a[0].length
+    var xlen = a.length;
+    var ylen = a[0].length;
     for (var i = 0; i < n; i++) {
-        var x = Math.floor(xlen * Math.random())
-        var y = Math.floor(ylen * Math.random())
+        var x = Math.floor(xlen * Math.random());
+        var y = Math.floor(ylen * Math.random());
         if(a[x][y] == 9) {
             n++
         }
         a[x][y] = 9
     }
     return a
-}
+};
 
 var number9 = function(array) {
-    var n = 0
+    var n = 0;
     for (var i = 0; i < array.length; i++) {
         for (var j = 0; j < array[i].length; j++) {
             if(array[i][j] == 9) {
@@ -176,118 +164,118 @@ var number9 = function(array) {
         }
     }
     return n
-}
+};
 
 var markedSquare09 = function(a09) {
     // var a09 = randomSquare09(x, y, n)
-    var s = markedSquare(a09)
-    var n = number9(s)
-    log('雷数', n)
+    var s = markedSquare(a09);
+    var n = number9(s);
+    log('雷数', n);
     return s
-}
+};
 
 
 
 
 // 创建点击事件
 var selectTd = function(x, y) {
-    var s = '_' + x + '_' + y
-    var td = e(`#${s}`)
+    var s = '_' + x + '_' + y;
+    var td = e(`#${s}`);
     return td
-}
+};
 
 var getXY = function(td) {
-    var id = td.id
+    var id = td.id;
     for (var i = 1; i < id.length; i++) {
         if(id[i] == '_') {
-            var x = Number(id.slice(1, i))
+            var x = Number(id.slice(1, i));
             var y = Number(id.slice(i + 1))
         }
     }
-    var a = [x, y]
+    var a = [x, y];
     return a
-}
+};
 
 var check = function(square, x, y) {
     if(x >= 0 && x < square.length && y >= 0 && y < square[0].length) {
-        var n = square[x][y]
-        var td = selectTd(x, y)
-        var result1 = td.classList.contains('done')
-        var result2 = td.classList.contains('mark')
+        var n = square[x][y];
+        var td = selectTd(x, y);
+        var result1 = td.classList.contains('done');
+        var result2 = td.classList.contains('mark');
         if(!result1 && !result2) {
             if(n == 0) {
-                td.classList.add('done')
+                td.classList.add('done');
                 checkRound(square, x, y)
             } else {
-                td.classList.add('done')
+                td.classList.add('done');
                 td.querySelector('span').classList.remove('hide')
             }
         }
     }
-}
+};
 
 var checkRound = function(square, x, y) {
-    check(square, x - 1, y - 1)
-    check(square, x - 1, y)
-    check(square, x - 1, y + 1)
+    check(square, x - 1, y - 1);
+    check(square, x - 1, y);
+    check(square, x - 1, y + 1);
 
-    check(square, x, y - 1)
-    check(square, x, y + 1)
+    check(square, x, y - 1);
+    check(square, x, y + 1);
 
-    check(square, x + 1, y - 1)
-    check(square, x + 1, y)
+    check(square, x + 1, y - 1);
+    check(square, x + 1, y);
     check(square, x + 1, y + 1)
 }
 
 
 var insertRest = function(n) {
-    var span = e('#id-li-rest')
+    var span = e('#id-li-rest');
     span.innerHTML = n
 }
 var insertTime = function(t) {
-    var span = e('#id-li-time')
+    var span = e('#id-li-time');
     span.innerHTML = t
 }
 
 var time = function() {
-    var t = 0
+    var t = 0;
     timeId = setInterval(function(){
-        t++
+        t++;
         insertTime(t)
     },1000);
 }
 
 
 var click0 = function(square, td) {
-    var a = getXY(td)
-    var x = a[0]
-    var y = a[1]
-    td.classList.add('done')
+    var a = getXY(td);
+    var x = a[0];
+    var y = a[1];
+    td.classList.add('done');
     checkRound(square, x, y)
-}
+};
 var click9 = function(td) {
-    var tds = es('td')
+    var tds = es('td');
     for (var i = 0; i < tds.length; i++) {
         if(tds[i].querySelector('span').innerHTML == 9) {
             tds[i].classList.add('nine')
         }
     }
-    clearInterval(timeId)
-    var table = e('table')
-    table.classList.add('ban')
+    clearInterval(timeId);
+    var table = e('table');
+    table.classList.add('ban');
     alert('扫雷失败')
-}
+};
 var clickElse = function(td) {
-    td.classList.add('done')
+    td.classList.add('done');
     td.querySelector('span').classList.remove('hide')
-}
+};
 
 var finish = function(n) {
-    var tds = es('td')
-    var m = 0
-    var right = 0
+    var tds = es('td');
+    var m = 0;
+    var right = 0;
     for (var i = 0; i < tds.length; i++) {
-        var td = tds[i]
+        var td = tds[i];
         if(!td.classList.contains('done')) {
             m++
         }
@@ -295,12 +283,12 @@ var finish = function(n) {
             right++
         }
     }
-    log('总雷数', n, '余雷数', n - right, '剩余未点击数', m)
+    log('总雷数', n, '余雷数', n - right, '剩余未点击数', m);
     if(n == m) {
-        clearInterval(timeId)
-        var table = e('table')
-        table.classList.add('ban')
-        var t = document.querySelector('#id-li-time').innerHTML
+        clearInterval(timeId);
+        var table = e('table');
+        table.classList.add('ban');
+        var t = document.querySelector('#id-li-time').innerHTML;
         alert(`扫雷成功 , 用时 ${t} 秒`)
     }
 }
@@ -310,38 +298,38 @@ var judgeClick = function(m, square, td) {
         click9(td)
         // alert('扫雷失败')
     } else if(m == 0) {
-        click0(square, td)
+        click0(square, td);
         log('click0')
     } else {
-        clickElse(td)
+        clickElse(td);
         log('clickElse')
     }
 }
 
 var firstClickIs9 = function(a09, td, n) {
-    var s = copySquare(a09)
-    var a = getXY(td)
-    var x = a[0]
-    var y = a[1]
+    var s = copySquare(a09);
+    var a = getXY(td);
+    var x = a[0];
+    var y = a[1];
     for (var i = 0; i < s.length; i++) {
         for (var j = 0; j < s[i].length; j++) {
             if(s[i][j] != 9) {
-                s[i][j] = 9
+                s[i][j] = 9;
                 break
             }
         }
         break
     }
-    s[x][y] = 0
-    var square = markedSquare09(s)
-    insertTable(square, n)
-    var td = selectTd(x, y)
-    td.classList.add('done')
-    td.querySelector('span').classList.remove('hide')
+    s[x][y] = 0;
+    var square = markedSquare09(s);
+    insertTable(square, n);
+    var td = selectTd(x, y);
+    td.classList.add('done');
+    td.querySelector('span').classList.remove('hide');
     if(td.querySelector('span').innerHTML == 0) {
         click0(square, td)
     }
-}
+};
 
 
 
@@ -349,9 +337,9 @@ var firstClickIs9 = function(a09, td, n) {
 
 var bindClick = function(square, n, a09) {
     bindAll('td', 'click', function() {
-        var tds = es('td')
+        var tds = es('td');
         // 获得被点数 num
-        var num = 0
+        var num = 0;
         for (var i = 0; i < tds.length; i++) {
             if(tds[i].classList.contains('done')) {
                 num++
@@ -360,8 +348,8 @@ var bindClick = function(square, n, a09) {
         if(num == 0) {
             time()
         }
-        var td = event.target
-        var m = td.querySelector('span').innerHTML
+        var td = event.target;
+        var m = td.querySelector('span').innerHTML;
         if(num == 0 && m == 9) {
             firstClickIs9(a09, td, n)
         } else {
@@ -375,20 +363,20 @@ var bindClick = function(square, n, a09) {
 // 右击事件
 var bindContextmenu = function(n) {
     bindAll('td', 'contextmenu', function () {
-        event.preventDefault()
-        var td = event.target
+        event.preventDefault();
+        var td = event.target;
         if(!td.classList.contains('done'))
-        td.classList.toggle('mark')
+        td.classList.toggle('mark');
 
-        var tds = es('td')
-        var right = 0
+        var tds = es('td');
+        var right = 0;
         for (var i = 0; i < tds.length; i++) {
-            var td = tds[i]
+            var td = tds[i];
             if(td.classList.contains('mark')) {
                 right++
             }
         }
-        insertRest(n - right)
+        insertRest(n - right);
         log('总雷数', n ,'余雷数', n - right)
     })
 }
@@ -397,7 +385,7 @@ var bindContextmenu = function(n) {
 
 // 创建网页元素
 var createTd = function(a, n) {
-    var td = ''
+    var td = '';
     for (var i = 0; i < a.length; i++) {
         if(a[i] == 0) {
             td += `<td id="_${n}_${i}"><span class="zero hide">${a[i]}</span></td>`
@@ -409,27 +397,27 @@ var createTd = function(a, n) {
 }
 
 var createTr = function(a, i) {
-    var tds = createTd(a, i)
-    var tr = `<tr>${tds}</tr>`
+    var tds = createTd(a, i);
+    var tr = `<tr>${tds}</tr>`;
     return tr
 }
 
 var insertTable = function(square, n, a09) {
-    var table = e('table')
-    table.innerHTML = ''
+    var table = e('table');
+    table.innerHTML = '';
     for (var i = 0; i < square.length; i++) {
-        var tr = createTr(square[i], i)
+        var tr = createTr(square[i], i);
         appendHtml(table, tr)
     }
-    bindClick(square, n, a09)
-    bindContextmenu(n)
+    bindClick(square, n, a09);
+    bindContextmenu(n);
     log('insertTable square', square)
 }
 
 var createTable = function(x, y, n) {
-    insertRest(n)
-    var a09 = randomSquare09(x, y, n)
-    var square = markedSquare09(a09)
+    insertRest(n);
+    var a09 = randomSquare09(x, y, n);
+    var square = markedSquare09(a09);
     insertTable(square, n, a09)
 }
 
@@ -444,20 +432,20 @@ var selectLevel = function() {
             clearInterval(timeId)
         }
         insertTime(0)
-        var button = event.target
-        var table = e('table')
-        var id = button.id
+        var button = event.target;
+        var table = e('table');
+        var id = button.id;
         if(id == 'id-button-low') {
-            table.innerHTML = ''
-            table.classList.remove('ban')
+            table.innerHTML = '';
+            table.classList.remove('ban');
             createTable(9, 9, 10)
         } else if(id == 'id-button-middle') {
-            table.innerHTML = ''
-            table.classList.remove('ban')
+            table.innerHTML = '';
+            table.classList.remove('ban');
             createTable(16, 16, 40)
         } else {
-            table.innerHTML = ''
-            table.classList.remove('ban')
+            table.innerHTML = '';
+            table.classList.remove('ban');
             createTable(16, 30, 99)
         }
     })
@@ -470,9 +458,9 @@ var selectLevel = function() {
 
 var __main = function() {
     // createTable(16, 30, 99)
-    selectLevel()
+    selectLevel();
     createTable(9, 9, 10)
-}
+};
 
-__main()
+__main();
 
